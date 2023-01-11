@@ -2,6 +2,8 @@
 .hr1{
     height: 1.5px;
     background: black;
+    width: 100%;
+    text-align: left;
 }
 
 .hr2{
