@@ -1,484 +1,1589 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .spacer {
-    flex: 1;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 8px;
-  }
-
-  .toolbar #youtube-logo {
-    height: 40px;
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo:hover,
-  .toolbar #youtube-logo:hover {
-    opacity: 0.8;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  svg.material-icons {
-    height: 24px;
-    width: auto;
-  }
-
-  svg.material-icons:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  .card svg.material-icons path {
-    fill: #888;
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .card {
-    all: unset;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-  }
-
-  .card-container .card:not(:last-child) {
-    margin-right: 0;
-  }
-
-  .card.card-small {
-    height: 16px;
-    width: 168px;
-  }
-
-  .card-container .card:not(.highlight-card) {
-    cursor: pointer;
-  }
-
-  .card-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
-
-  .card-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-  }
-
-  .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
-  }
-
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
-
-  a,
-  a:visited,
-  a:hover {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #125699;
-  }
-
-  .terminal {
-    position: relative;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 6px;
-    padding-top: 45px;
-    margin-top: 8px;
-    overflow: hidden;
-    background-color: rgb(15, 15, 16);
-  }
-
-  .terminal::before {
-    content: "\2022 \2022 \2022";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: rgb(58, 58, 58);
-    color: #c2c3c4;
-    width: 100%;
-    font-size: 2rem;
-    line-height: 0;
-    padding: 14px 0;
-    text-indent: 4px;
-  }
-
-  .terminal pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
-  }
-
-  .circle-link {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    margin: 8px;
-    background-color: white;
-    border: 1px solid #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 1s ease-out;
-  }
-
-  .circle-link:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
-  }
-
-  .github-star-badge {
-    color: #24292e;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid rgba(27,31,35,.2);
-    border-radius: 3px;
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-    margin-left: 4px;
-    font-weight: 600;
-  }
-
-  .github-star-badge:hover {
-    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-    border-color: rgba(27,31,35,.35);
-    background-position: -.5em;
-  }
-
-  .github-star-badge .material-icons {
-    height: 16px;
-    width: 16px;
-    margin-right: 4px;
-  }
-
-  svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-    .card-container > *:not(.circle-link) ,
-    .terminal {
-      width: 100%;
-    }
-
-    .card:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
-
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
-</style>
-
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="40"
-    alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-  />
-  <span>Welcome</span>
-    <div class="spacer"></div>
-    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
-      <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <rect width="400" height="400" fill="none"/>
-        <path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23" fill="#fff"/>
-      </svg>
-    </a>
-    <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
-      <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
-        <path d="M0 0h24v24H0V0z" fill="none"/>
-        <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
-      </svg>
-    </a>
-</div>
-
-<div class="content" role="main">
-
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-
-    <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
-      <title>Rocket Ship</title>
-      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
-        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031"/>
-        <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
-          <path id="Path_33" data-name="Path 33" d="M3.4,42.615a3.084,3.084,0,0,0,3.553,3.553,21.419,21.419,0,0,0,12.215-6.107L9.511,30.4A21.419,21.419,0,0,0,3.4,42.615Z" transform="translate(0.371 3.363)" fill="#fff"/>
-          <path id="Path_34" data-name="Path 34" d="M53.3,3.221A3.09,3.09,0,0,0,50.081,0,48.227,48.227,0,0,0,18.322,13.437c-6-1.666-14.991-1.221-18.322,7.218A33.892,33.892,0,0,1,9.439,25.1l-.333.666a3.013,3.013,0,0,0,.555,3.553L23.985,43.641a2.9,2.9,0,0,0,3.553.555l.666-.333A33.892,33.892,0,0,1,32.647,53.3c8.55-3.664,8.884-12.326,7.218-18.322A48.227,48.227,0,0,0,53.3,3.221ZM34.424,9.772a6.439,6.439,0,1,1,9.106,9.106,6.368,6.368,0,0,1-9.106,0A6.467,6.467,0,0,1,34.424,9.772Z" transform="translate(0 0.005)" fill="#fff"/>
-        </g>
-      </g>
-    </svg>
-
-    <span>{{ title }} app is running!</span>
-
-    <svg id="rocket-smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
-      <title>Rocket Ship Smoke</title>
-      <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
-    </svg>
-
-  </div>
-
-  <!-- Resources -->
-  <h2>Resources</h2>
-  <p>Here are some links to help you get started:</p>
-
-  <div class="card-container">
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/tutorial">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-      <span>Learn Angular</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/cli">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-      <span>CLI Documentation</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://material.angular.io">
-      <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px" width="21.813" height="23.453" viewBox="0 0 179.2 192.7"><path fill="#ffa726" d="M89.4 0 0 32l13.5 118.4 75.9 42.3 76-42.3L179.2 32 89.4 0z"/><path fill="#fb8c00" d="M89.4 0v192.7l76-42.3L179.2 32 89.4 0z"/><path fill="#ffe0b2" d="m102.9 146.3-63.3-30.5 36.3-22.4 63.7 30.6-36.7 22.3z"/><path fill="#fff3e0" d="M102.9 122.8 39.6 92.2l36.3-22.3 63.7 30.6-36.7 22.3z"/><path fill="#fff" d="M102.9 99.3 39.6 68.7l36.3-22.4 63.7 30.6-36.7 22.4z"/></svg>
-      <span>Angular Material</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://blog.angular.io/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
-      <span>Angular Blog</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/devtools/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M14.73,13.31C15.52,12.24,16,10.93,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.43,0,2.74-0.48,3.81-1.27L19.59,21L21,19.59L14.73,13.31z M9.5,14C7.01,14,5,11.99,5,9.5S7.01,5,9.5,5S14,7.01,14,9.5 S11.99,14,9.5,14z"/><polygon points="10.29,8.44 9.5,6 8.71,8.44 6.25,8.44 8.26,10.03 7.49,12.5 9.5,10.97 11.51,12.5 10.74,10.03 12.75,8.44"/></g></g></svg>
-      <span>Angular DevTools</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-  </div>
-
-  <!-- Next Steps -->
-  <h2>Next Steps</h2>
-  <p>What do you want to do next with your app?</p>
-
-  <input type="hidden" #selection>
-
-  <div class="card-container">
-    <button class="card card-small" (click)="selection.value = 'component'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>New Component</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'material'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Angular Material</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'pwa'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Add PWA Support</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'dependency'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Add Dependency</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'test'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Run and Watch Tests</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'build'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Build for Production</span>
-    </button>
-  </div>
-
-  <!-- Terminal -->
-  <div class="terminal" [ngSwitch]="selection.value">
-      <pre *ngSwitchDefault>ng generate component xyz</pre>
-      <pre *ngSwitchCase="'material'">ng add @angular/material</pre>
-      <pre *ngSwitchCase="'pwa'">ng add @angular/pwa</pre>
-      <pre *ngSwitchCase="'dependency'">ng add _____</pre>
-      <pre *ngSwitchCase="'test'">ng test</pre>
-      <pre *ngSwitchCase="'build'">ng build</pre>
-  </div>
-
-  <!-- Links -->
-  <div class="card-container">
-    <a class="circle-link" title="Find a Local Meetup" href="https://www.meetup.com/find/?keywords=angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24.607" height="23.447" viewBox="0 0 24.607 23.447">
-        <title>Meetup Logo</title>
-        <path id="logo--mSwarm" d="M21.221,14.95A4.393,4.393,0,0,1,17.6,19.281a4.452,4.452,0,0,1-.8.069c-.09,0-.125.035-.154.117a2.939,2.939,0,0,1-2.506,2.091,2.868,2.868,0,0,1-2.248-.624.168.168,0,0,0-.245-.005,3.926,3.926,0,0,1-2.589.741,4.015,4.015,0,0,1-3.7-3.347,2.7,2.7,0,0,1-.043-.38c0-.106-.042-.146-.143-.166a3.524,3.524,0,0,1-1.516-.69A3.623,3.623,0,0,1,2.23,14.557a3.66,3.66,0,0,1,1.077-3.085.138.138,0,0,0,.026-.2,3.348,3.348,0,0,1-.451-1.821,3.46,3.46,0,0,1,2.749-3.28.44.44,0,0,0,.355-.281,5.072,5.072,0,0,1,3.863-3,5.028,5.028,0,0,1,3.555.666.31.31,0,0,0,.271.03A4.5,4.5,0,0,1,18.3,4.7a4.4,4.4,0,0,1,1.334,2.751,3.658,3.658,0,0,1,.022.706.131.131,0,0,0,.1.157,2.432,2.432,0,0,1,1.574,1.645,2.464,2.464,0,0,1-.7,2.616c-.065.064-.051.1-.014.166A4.321,4.321,0,0,1,21.221,14.95ZM13.4,14.607a2.09,2.09,0,0,0,1.409,1.982,4.7,4.7,0,0,0,1.275.221,1.807,1.807,0,0,0,.9-.151.542.542,0,0,0,.321-.545.558.558,0,0,0-.359-.534,1.2,1.2,0,0,0-.254-.078c-.262-.047-.526-.086-.787-.138a.674.674,0,0,1-.617-.75,3.394,3.394,0,0,1,.218-1.109c.217-.658.509-1.286.79-1.918a15.609,15.609,0,0,0,.745-1.86,1.95,1.95,0,0,0,.06-1.073,1.286,1.286,0,0,0-1.051-1.033,1.977,1.977,0,0,0-1.521.2.339.339,0,0,1-.446-.042c-.1-.092-.2-.189-.307-.284a1.214,1.214,0,0,0-1.643-.061,7.563,7.563,0,0,1-.614.512A.588.588,0,0,1,10.883,8c-.215-.115-.437-.215-.659-.316a2.153,2.153,0,0,0-.695-.248A2.091,2.091,0,0,0,7.541,8.562a9.915,9.915,0,0,0-.405.986c-.559,1.545-1.015,3.123-1.487,4.7a1.528,1.528,0,0,0,.634,1.777,1.755,1.755,0,0,0,1.5.211,1.35,1.35,0,0,0,.824-.858c.543-1.281,1.032-2.584,1.55-3.875.142-.355.28-.712.432-1.064a.548.548,0,0,1,.851-.24.622.622,0,0,1,.185.539,2.161,2.161,0,0,1-.181.621c-.337.852-.68,1.7-1.018,2.552a2.564,2.564,0,0,0-.173.528.624.624,0,0,0,.333.71,1.073,1.073,0,0,0,.814.034,1.22,1.22,0,0,0,.657-.655q.758-1.488,1.511-2.978.35-.687.709-1.37a1.073,1.073,0,0,1,.357-.434.43.43,0,0,1,.463-.016.373.373,0,0,1,.153.387.7.7,0,0,1-.057.236c-.065.157-.127.316-.2.469-.42.883-.846,1.763-1.262,2.648A2.463,2.463,0,0,0,13.4,14.607Zm5.888,6.508a1.09,1.09,0,0,0-2.179.006,1.09,1.09,0,0,0,2.179-.006ZM1.028,12.139a1.038,1.038,0,1,0,.01-2.075,1.038,1.038,0,0,0-.01,2.075ZM13.782.528a1.027,1.027,0,1,0-.011,2.055A1.027,1.027,0,0,0,13.782.528ZM22.21,6.95a.882.882,0,0,0-1.763.011A.882.882,0,0,0,22.21,6.95ZM4.153,4.439a.785.785,0,1,0,.787-.78A.766.766,0,0,0,4.153,4.439Zm8.221,18.22a.676.676,0,1,0-.677.666A.671.671,0,0,0,12.374,22.658ZM22.872,12.2a.674.674,0,0,0-.665.665.656.656,0,0,0,.655.643.634.634,0,0,0,.655-.644A.654.654,0,0,0,22.872,12.2ZM7.171-.123A.546.546,0,0,0,6.613.43a.553.553,0,1,0,1.106,0A.539.539,0,0,0,7.171-.123ZM24.119,9.234a.507.507,0,0,0-.493.488.494.494,0,0,0,.494.494.48.48,0,0,0,.487-.483A.491.491,0,0,0,24.119,9.234Zm-19.454,9.7a.5.5,0,0,0-.488-.488.491.491,0,0,0-.487.5.483.483,0,0,0,.491.479A.49.49,0,0,0,4.665,18.936Z" transform="translate(0 0.123)" fill="#f64060"/>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Join the Conversation on Discord" href="https://discord.gg/angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 245 240">
-        <title>Discord Logo</title>
-        <path d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/>
-        <path d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
-      </svg>
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-      Love Angular?&nbsp;
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener"> Give our repo a star.
-        <div class="github-star-badge">
-            <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          Star
+<div class="container">
+  <div id="pdfTable" #pdfTable>
+    <div class="table1">
+      <div class="div1">
+        <span style="font-size: 50px;"><b>Street</b>UK</span> <br><span style="font-size: 15px;">the affordable finance
+          company</span>
+      </div>
+      <div class="div3">
+        <span style="font-size: 15px; font-weight: 800;">Private & <br> Confidential
+        </span><br>
+        <span style="text-align: right; font-size: 10px;">
+          Application Date: 26-07-2022 <br>
+          Application No.: APP65125 <br>
+          Enquiry No.: YAS68290
+        </span>
+      </div>
+      <div class="div2">
+
+        <span style="font-size: 25px; font-weight: 700;">Loan <br> Application</span>
+      </div>
+
+      <!-- <table>
+        <tr>
+          <th style="text-align: center;"></th>
+          <th style="text-align: center;">
+          </th>
+          <th style="text-align: center;">
+          </th>
+        </tr>
+
+      </table> -->
+    </div>
+    <br><br>
+    <hr class="hr1">
+    <div class="row">
+      <div class="column">
+        <div class="column1">
+          <h2>First Applicant Personal / Contact Detailes</h2>
+          <form action="">
+            <label for="nameAddr">Full Name & Address:</label><br>
+            <input type="text" class="hex" id="nameAddr" name="nameAddr"><br><br>
+            <label for="tHome">Telephone (home):</label>
+            <input type="text" id="tHome" name="tHome"><br><br>
+            <label for="tWork">Telephone (Work):</label>
+            <input type="text" id="tWork" name="tWork"><br><br>
+            <label for="mPhone">Mobile Phone:</label>
+            <input type="text" id="mPhone" name="mPhone"><br><br>
+            <label for="lname">Email:</label>
+            <input type="email" id="email" name="email"><br><br>
+            <label for="niNo">NI No:</label>
+            <input type="text" id="niNo" name="niNo"><br><br>
+            <label for="dob">Date of Birth:</label>
+            <input type="text" id="dob" name="dob"><br><br>
+            <label for="ukr">UK Resident:</label>
+            <input type="text" id="res" name="res"><br><br>
+            <label for="status">Marital Status:</label>
+            <input type="text" id="status" name="status"><br>
+          </form>
         </div>
-      </a>
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-      </a>
-  </footer>
 
-  <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
-    <title>Gray Clouds Background</title>
-    <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
-  </svg>
+      </div>
+      <!-- <div class="column">
+        <div class="vl"></div>
+      </div> -->
 
-</div>
+      <div class="column">
+        <div class="column2">
+          <h2>Second Applicant Personal / Contact Detailes</h2>
+          <form action="">
+            <label for="nameAddr">Full Name & Address:</label><br>
+            <input type="text" class="hex" id="nameAddr2" name="nameAddr2"><br><br>
+            <label for="tHome">Telephone (home):</label>
+            <input type="text" id="tHome2" name="tHome2"><br><br>
+            <label for="tWork">Telephone (Work):</label>
+            <input type="text" id="tWork2" name="tWork2"><br><br>
+            <label for="mPhone">Mobile Phone:</label>
+            <input type="text" id="mPhone2" name="mPhone2"><br><br>
+            <label for="lname">Email:</label>
+            <input type="email" id="email2" name="email"><br><br>
+            <label for="niNo">NI No:</label>
+            <input type="text" id="niNo2" name="niNo"><br><br>
+            <label for="dob">Date of Birth:</label>
+            <input type="text" id="dob2" name="dob"><br><br>
+            <label for="ukr">UK Resident:</label>
+            <input type="text" id="res2" name="res"><br><br>
+            <label for="status">Marital Status:</label>
+            <input type="text" id="status2" name="status"><br>
+          </form>
+        </div>
+      </div>
+    </div>
 
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+    <hr class="hr2">
+    <div class="household">
+      <h3>1.Your Household</h3>
+      <form action="">
 
-<router-outlet></router-outlet>
+        <label for="noofchild">No. of dependent children:</label>
+        <input type="number" id="noofchild71" name="noofchild"><br>
+        <label for="ychild">Age of youngest child:</label>
+        <input type="number" id="ychild2" name="ychild"><br>
+        <label for="da">Domestic Arrangements:</label>
+        <input type="text" id="da3" name="da"><br><br>
+        <label for="noofchild">Time at current address Years:</label>
+        <input type="number" id="noofchild4" name="noofchild"><br>
+        <label for="noofchild">Time at previous address Years:</label>
+        <input type="number" id="noofchild5" name="noofchild"><br><br>
+
+
+
+
+        <label for="noofchild">Previous Adress(If less than 3 years):</label><br>
+        <input type="text" class="hex" id="noofchild6" name="noofchild">
+
+
+
+
+
+
+      </form>
+    </div>
+    <br><br>
+    <hr class="hr2">
+    <div class="home">
+      <h3>2.Your Home</h3>
+      <form action="">
+
+        <label for="noofchild">Landford:</label>
+        <input type="number" id="noofchild7" name="noofchild"><br><br><br>
+        <label for="ychild">Mortage detailes:</label>
+        <input type="number" id="ychild8" name="ychild"><br>
+        <label for="da">Amount Outstanding:</label>
+        <input type="text" id="da9" name="da"><br><br>
+        <label for="noofchild">Value of property:</label>
+        <input type="number" id="noofchild10" name="noofchild"><br>
+        <label for="noofchild">Property Type:</label>
+        <input type="number" id="noofchild11" name="noofchild"><br>
+        <label for="noofchild">Tenacy Commenced:</label>
+        <input type="number" id="noofchild12" name="noofchild"><br>
+        <label for="noofchild">Tenacy Term:</label>
+        <input type="number" id="noofchild13" name="noofchild"><br><br>
+
+
+        <label for="noofchild">Name of Lender / LandFord:</label><br>
+        <input type="text" class="hex" id="noofchild14" name="noofchild">
+
+
+
+
+      </form>
+    </div>
+    <br><br>
+    <br>
+    <hr class="hr1">
+    <div class="Work">
+      <h3>3.Your Work</h3>
+      <form action="">
+
+        <label for="noofchild">Occupation:</label><br>
+        <input type="number" id="noofchild123" name="noofchild"><br><br>
+        <label for="ychild">Nature of Employment:</label>
+        <input type="number" id="ychild1" name="ychild"><br><br>
+        <label for="da">Time with current employer (years):</label>
+        <input type="text" id="da1" name="da"><br><br>
+        <label for="noofchild">Payment Frequency:</label>
+        <input type="number" id="noofchild178" name="noofchild"><br><br>
+        <label for="noofchild">Payment Method</label>
+        <input type="text"><br><br>
+
+
+        <label for="noofchild">Employer Name / Address & Employment History:</label><br>
+        <input type="text" class="hex" id="noofchild109" name="noofchild">
+
+
+      </form>
+    </div>
+    <hr class="hr1">
+    <hr class="hr2">
+    <div class="Work">
+      <h3>3. Loan Application</h3>
+      <form action="">
+        <label for="la">Loan Ammount(£):</label><br>
+        <input type="number"><br><br>
+        <label for="ar">Affordable Repayment(£):</label>
+        <input type="number"><br><br>
+        <label for="rf">Repayment Frequency:</label>
+        <input type="text"><br><br>
+        <label for="noOfItems">No of repayment (item):</label>
+        <input type="number"><br><br>
+        <label for="noofchild">Loan Purpose <br> Purchase</label><br><br>
+        <input type="text" class="hex"><br><br>
+
+      </form>
+    </div>
+    <hr class="hr1">
+    <div class="bankingDetailes">
+      <h3>5. Present Banking Detailes</h3>
+      <form action="">
+        <label for="an">Acount Name:</label><br>
+        <input type="text"><br><br>
+        <label for="aNo">Account No:</label>
+        <input type="number"><br><br>
+        <label for="sc">Sort Code:</label>
+        <input type="text"><br><br>
+        <label for="time">Time with bank (years):</label>
+        <input type="number"><br><br>
+        <label for="noofchild">Do you have Internet banking facilities:</label><br><br>
+        <input type="text"><br><br>
+        <label for="noofchild">Name of Bank / Building society:</label><br><br>
+        <input type="text" class="hex"><br><br>
+      </form>
+    </div>
+    <hr class="hr1">
+    <div class="savings">
+      <h3>6.Savings</h3>
+      <form action="">
+        <label for="an">TOTAL SAVINGS:</label>
+        <input type="text"><br><br>
+        <label for="aNo">Do you have a CreditUnion A/c?:</label>
+        <input type="text"><br><br>
+        <label for="sc">Do you have any other bank accounts?:</label>
+        <input type="text"><br><br>
+        <label for="time">If yes please give detailes:</label>
+        <input type="text"><br><br>
+        <label for="noofchild">Additional Information:</label><br><br>
+        <input type="text" class="hex"><br><br>
+      </form>
+    </div>
+    <hr class="hr1">
+
+    <div class="liabilities">
+      <h3>6.Existing Liabilities</h3>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Creditor</th>
+          <th>Status</th>
+          <th>Balance <br> Outstanding</th>
+          <th>Regular <br> Payment</th>
+          <th>Payment <br> Frequency</th>
+        </tr>
+        <tr>
+          <td>Loan</td>
+          <td>Loans2go £500</td>
+          <td>Active</td>
+          <td>500.00</td>
+          <td></td>
+          <td>M</td>
+        </tr>
+        <tr>
+          <td>Loan</td>
+          <td>My Finance Club £500</td>
+          <td>Active</td>
+          <td>521.00</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table><br><br><br>
+      <p>TOTAL OUTSTANDING £ <span style="font-weight: normal;">1021</span></p>
+      <p>WEEKLY REPAYMENT £</p>
+      <P>MONTHLY REPAYMENT £ </P>
+    </div>
+    <hr class="hr1">
+    <div class="savings">
+      <h3>8.Adverse Credit History</h3>
+      <form action="">
+        <label for="an">Have you been referred to a Agency in the last 12 Months?</label>
+        <input type="text"><br>
+        <label for="aNo">Have you used a Debt Management or Debit Advice Service in the last 12 months?</label>
+        <input type="text"><br>
+        <label for="sc">Have you any County Court Judgements registered in your name:</label>
+        <input type="text">
+        <label for="sc">If yes please provide detailes:</label>
+        <input type="text"><br>
+        <label for="time">Have you applied for any finance ithe last 12 months?</label>
+        <input type="text"><br><br>
+        <label for="noofchild">Date: Amount(£): Creditor/Circumstances/Current Position:</label><br><br>
+        <input type="text" class="hex2"><br><br>
+
+      </form>
+    </div>
+    <hr class="hr2">
+    <!---->
+    <div class="personalbudget">
+      <h3>9.Personal Budget</h3>
+      <table>
+        <tr>
+          <th>Income detailes</th>
+          <th>Amount £</th>
+          <th>Frequency</th>
+          <th>Comments</th>
+        </tr>
+        <tr>
+          <td>Your main income:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td><input class="hex" type="text"></td>
+
+        </tr>
+        <tr>
+          <td>Partner's income:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Benefits:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>TOTAL INCOME:</td>
+          <td><b>£504</b></td>
+          <td>Weekly</td>
+          <td></td>
+        </tr>
+      </table>
+      <p>Confirmation of income is required. Please supply bank statements / wage slips.</p>
+
+      <table>
+        <tr>
+          <th>Expenditure detailes</th>
+          <th>Ammount £</th>
+          <th>Frequency</th>
+          <th>Comments</th>
+        </tr>
+        <tr>
+          <td>Household expenses <br> Mortage / Rent:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td><input type="text" class="hex"></td>
+        </tr>
+        <tr>
+          <td>Council Tax:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Electricity:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Gas/Oil/Coal:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Water Rates:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Household Insurance:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Telephone (landline):</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Telephone (Mobile):</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>TV Licence/Cable/Sky:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <br>
+        <tr>
+          <td>Total Household Expenses</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <hr class="hr1">
+        <tr>
+          <td>Credit Expenses <br> Loan/HP repayments:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+        </tr>
+        <tr>
+          <td>Credit or Store cards:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Catalogue payments:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Car Finance</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Mortage</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Total Credit Expenses</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <hr class="hr1">
+        <tr>
+          <td>Living Expenses <br> Food/Shopping:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+        </tr>
+        <tr>
+          <td>Clothes / Uniforms / Shoes <br> Travel-Bus / Taxi / Rail etc <br>Car Expenses - Petrol etc:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Clothes / Uniforms / Shoes <br> Travel-Bus / Taxi / Rail etc <br>Car Expenses - Petrol etc:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Childminding:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Pocket Money:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>School meals:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Life Insurace / Pension:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Maintance payments:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Birthdays/Christams/Other:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Total Living Expenses:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <br>
+        <tr>
+          <td>Personal Expenses <br> Cigarettes:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td><input type="text" class="hr2"></td>
+        </tr>
+        <tr>
+          <td>Drinks/Meals Out:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Hobbies etc:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Papers / Magazines:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Other / Membership:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Total Personal Expenses:</td>
+          <td><input type="number"></td>
+          <td><input type="text"></td>
+          <td></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <th></th>
+          <th><b>Weekly £</b></th>
+          <th><b>Monthly £</b></th>
+        </tr>
+        <tr>
+          <td>TOTAL INCOME:</td>
+          <TD>£ 504</TD>
+          <TD>£ 2184</TD>
+        </tr>
+        <TR>
+          <TD>TOTAL EXPENDITURE:</TD>
+          <td>£ 255</td>
+          <td>£ 1105</td>
+        </TR>
+        <TR>
+          <TD>SURPLUS INCOME:</TD>
+          <td>£ 249</td>
+          <td>£ 1079</td>
+        </TR>
+      </table>
+    </div>
+    <hr class="hr2">
+    <h3>10.Equal Opportunities Monitoring</h3>
+    <div class="row">
+      <div class="column">
+        <div class="column1">
+          <p>First Applicant</p>
+          <form action="">
+            <label for="">Gender</label>
+            <input type="text"><br><br>
+            <label for="">Ethnic Origin:</label>
+            <input type="text"><br><br>
+            <label for="">If 'Other' please specify:</label>
+            <input type="text"><br><br>
+            <label for="">Disability:</label>
+            <input type="text"><br><br>
+          </form>
+        </div>
+
+      </div>
+      <div class="column">
+        <div class="column2">
+          <p>Second Applicant</p>
+          <form action="">
+            <label for="">Gender</label>
+            <input type="text"><br><br>
+            <label for="">Ethnic Origin:</label>
+            <input type="text"><br><br>
+            <label for="">If 'Other' please specify:</label>
+            <input type="text"><br><br>
+            <label for="">Disability:</label>
+            <input type="text"><br><br>
+          </form>
+        </div>
+      </div>
+    </div>
+    <hr class="hr1">
+
+    <div class="savings">
+      <h3>11.Declaration and Agreement</h3>
+      <p>We think it is important to build a responsible and trusting relationship with our clients; therefore unlike
+        other companies we will only <br>
+        lend tou amounts you can comfortably repay</p>
+      <p>As our relationship develops, you will enjoy improved flexibility to be able to apply for more in future. Your
+        maximum credit linit at any <br>
+        one time is determined b lots of different factors</p>
+
+      <p>
+        Only you can decide whether to apply or not, please only do so if you are confident you will have the funds to
+        make the repayment on <br>
+        your chosen date.
+      </p>
+
+      <p>
+        I/We submit this application for a Street (UK) CIC mortage/home improvement loan / unsecured personal loan
+        (delete as appropriate) <br>
+        and declare that the information that I/We have supplied is true and accurate. I/We authorize you to make any
+        <br>
+        enquiries you feel necessary for confirmation of the information contained in this application and the credit
+        agreement and for the <br>
+        purposes of credit assesment (including those detailed below). I/We authorize you to review relevant rent and
+        moratge account <br>
+        details and related performance information held bymembers of the Street (UK) Group of companies and it's
+        partner organisations.
+      </p>
+
+      <p>
+        I/We agree that Street (UK) CIC may carry out seraches against me at credi reference agencies and agree and
+        acknowledge that <br>
+        deatiles of such searches will be addes to the credit refernce agencies' records about me and may be seen by
+        other organisations <br>
+        making seraches. I/We also agree and ackowledge that information held about me by credit reference agencies mau
+        be linked to <br>
+        records relating to any person with whom i?We am/are linked financially.
+      </p>
+
+      <p>
+        I / We agree that all correspondence relating to this application wiil be addressed to the '1st Named
+        Applicant'.
+      </p>
+
+      <p>
+        I / We agree that if this application for a street (UK) CIC DWP loan is approved I / We provide consent to
+        Street (UK) CIC to take a <br>
+        photograph of me/us for fraud pevention purposes.
+      </p><br>
+      <h4>First Applicant</h4>
+      <label for="">Signed</label>
+      <input type="text">
+      <label for="">Date</label>
+      <input type="text"><br>
+      <h4>Second Applicant</h4>
+      <label for="">Signed</label>
+      <input type="text">
+      <label for="">Date</label>
+      <input type="text"><br>
+
+      <p>By signing above I/We agree to the processing of my personal information as set out in this application and in
+        terms and <br>
+        conditions of the credit agreement.
+      </p>
+      <p>DELARATION OF CONSENT (to be completed by your partner if their income is being included in the monthly income
+        calculations).</p>
+      I
+      <input type="text">
+      (partner's name) confirm that I have given my consent for <br><br>
+      <input type="text">
+      (your name) to include my detailes in his.her loan application. <br><br>
+
+      Signed:
+      <input type="text">
+      Date:
+      <input type="text"><br>
+
+      <h3>Data Protection Legislation</h3>
+      <p>In accordance with the principles of Data Protection Legslation, Street(UK) CIC will use our personal detailes
+        for the purpoes of <br>
+        processing your application and credit agreement and managing your account> Your personal deatiles will be
+        treated Confidentially <br>
+        and will only be shared with other organisations as set out in the terms and conditions of the agreement. Street
+        (UK) CIC holds a <br>
+        Consumer Credit Act Licence for it's credit referencing and debt recovery practices.
+      </p><br>
+      <hr class="hr1">
+      <p>Data Protection Legislation is defined as the Data protection Act 2018, General Data Protection Regulation
+        2016/679, and the privacy
+        <br> and Electronic Communication Regulation 2003 and each of their successors.
+      </p>
+    </div>
+    <!-- <div class="table1">
+    <table>
+      <tr>
+      <th style="text-align: center;"><span style="font-size: 50px;"><b>street</b>UK</span>  <br><span style="font-size: 15px;">the affordable finance company</span> </th>
+      <th style="text-align: center;"><span style="font-size: 25px; font-weight: 700;" ></span> </th>
+      <th>
+       <span style="text-align: left; font-size: 10px;">
+        Neville House <br>
+        14 sdsds Street <br>
+        T:0330 0240 9803 <br><br>
+        E:loans@street-uk.com
+       </span>    
+      </th>
+      </tr>
+      
+    </table>
+    </div> -->
+    <div class="table2">
+      <div class="div1">
+        <span style="font-size: 50px; text-align: left;"><b>Street</b>UK</span> <br><span style="font-size: 15px;">the
+          affordable finance company</span>
+      </div>
+
+      <div class="div2">
+
+        <span style="text-align: right; font-size: 15px;">
+          Neville House <br>
+          14 sdsds Street <br>
+          T:0330 0240 9803 <br><br>
+          E:loans@street-uk.com
+        </span>
+      </div>
+
+    </div>
+    <br><br>
+    <h3 style="text-align: center;">Important Information Sheet</h3>
+
+
+    <h4>Information for:</h4>
+
+    <p style="font-weight: bold;">Mr Mohammed Yaseen of 24 Bromyard Road, Sparkhill, Birmingham, B11 3B BA.</p><br>
+
+    <h5>Your Street(UK) C.I.C Loan Agreement explained</h5>
+
+    <p>Your proposed Street(UK) C.I.C Loan agreement is regulated by the Consumer Credit Act 1974(The 'Act).
+      <br> The Act gives you certain rights and protections. We are obgliged to give you an adequate explanation of <br>
+      your choice about whether or not to go ahead with it.
+
+    </p>
+
+    <h5>Pre-Contract Information</h5>
+
+    <p>
+      In addition to he Information contained in this document, you will be provided with seperate Pre- <br>
+      Contract Information about your personal loan agreement. This containes detailed Information about <br>
+      Your proposed agreement, including how you can withdraw from it once the agreement is mode.
+    </p>
+
+    <h5>It is important that you read through the Pre-Contract information carefully</h5>
+    <p>
+      Aliquip voluptate amet enim elit nostrud. Do tempor ea reprehenderit ipsum cupidatat labore magna labore.
+      Excepteur dolore ut ullamco non officia dolor anim labore.
+      qsqMagna veniam eu culpa mollit amet incididunt ut non laboris tempor est laboris anim occaecat. Id excepteur
+      exercitation amet ea ipsum. Mollit nulla ad occaecat aliquip amet ut sint ex eu.
+
+      Elit sit consequat esse duis cillum occaecat laboris. Lorem nulla eu occaecat est et duis minim. Ea sint voluptate
+      minim ea elit eu pariatur laboris incididunt. Pariatur exercitation id non irure ex.
+
+      Adipisicing reprehenderit pariatur incididunt do. Laborum sint dolore fugiat labore occaecat reprehenderit
+      excepteur excepteur anim reprehenderit adipisicing elit exercitation. Incididunt et veniam consequat exercitation.
+      Aliqua veniam eu occaecat irure commodo pariatur est ullamco est occaecat. Commodo cillum dolor adipisicing ad
+      nisi aliquip adipisicing non nisi consectetur Lorem et. Proident proident voluptate fugiat quis mollit dolor.
+    </p>
+
+    <h5>Key Features Of The Agreement</h5>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nam, animi in architecto rerum voluptate labore? Nisi
+      consequuntur quis aliquam, facere sequi provident ducimus, <br> vero ex cumque quia rerum odio?
+      Pariatur amet ullamco nisi consectetur nostrud aliquip pariatur fugiat. Aliqua ea consequat ad nisi proident
+      proident deserunt Lorem. In Lorem esse sit cupidatat esse occaecat nulla esse ipsum reprehenderit veniam Lorem
+      magna. Sunt nostrud exercitation quis amet minim sunt consequat consequat dolore incididunt quis aliqua cupidatat.
+      Duis do duis veniam id irure ipsum laborum qui voluptate ipsum consectetur.
+
+      Duis duis laborum eiusmod deserunt sit ad dolore ipsum. Dolor non reprehenderit dolore id elit ipsum qui ut duis
+      adipisicing fugiat est minim ex. Irure dolor velit aliqua sit et exercitation ullamco. Ex enim pariatur sit
+      voluptate et eu ad minim Lorem esse officia veniam Lorem quis. Cupidatat dolor id adipisicing magna ad anim. Irure
+      sunt ea sint cillum amet laborum proident.
+    </p>
+
+    <h5>What you are due to pay to us under the Agreement</h5>
+
+    <p>
+      Aute ea consequat non cupidatat id laboris. In ullamco consequat est laborum exercitation dolor quis magna sint
+      minim nostrud. Proident consectetur deserunt voluptate sit non ut elit do consectetur. Adipisicing eiusmod officia
+      veniam pariatur ex. Aute occaecat ea laborum in labore cupidatat Lorem.
+    </p>
+
+    <h5>What could happen to adversely affect you</h5>
+    <p>
+      Velit deserunt exercitation aliqua fugiat incididunt excepteur. Exercitation adipisicing fugiat nulla quis duis
+      sint mollit minim ea. Esse incididunt ullamco dolore id qui non. Laboris sit nisi veniam officia ex minim labore.
+      Ea ut non velit dolor sint occaecat aliqua in est consectetur deserunt. Consectetur labore nisi Lorem pariatur
+      nostrud id quis commodo nisi sunt.
+    </p>
+
+    <h5>What if you do not make your payments on their due date?</h5>
+    <p>
+      Minim est exercitation laborum proident Lorem eiusmod aliquip aute id anim. Amet Lorem proident pariatur
+      reprehenderit do do id minim Lorem elit. Eu id pariatur eiusmod reprehenderit dolore deserunt voluptate veniam
+      laboris cillum reprehenderit. Sit proident do occaecat pariatur.
+
+      In sit sunt eiusmod reprehenderit eiusmod voluptate nisi nulla incididunt cupidatat irure. Dolor exercitation
+      commodo quis et eiusmod minim dolor labore id do excepteur magna mollit nostrud. Occaecat incididunt deserunt
+      tempor ex nostrud ut officia non dolor nulla est.
+    </p>
+
+    <h5>Your right to withdraw from the agreement</h5>
+    <p>
+      Nostrud in duis ad culpa labore in dolor nulla aliquip deserunt do aliquip. Aliquip officia aliquip aliqua eu
+      magna anim elit. Ullamco quis ad amet fugiat dolor enim.
+
+      Ipsum ex est proident eiusmod consequat minim culpa labore minim. Magna eu voluptate labore voluptate consequat
+      amet elit sint pariatur cupidatat eu irure. Laboris veniam do qui deserunt ad aliqua ipsum eu incididunt.
+
+      Ea adipisicing officia anim amet consectetur magna laborum proident ullamco Lorem. Consequat exercitation veniam
+      ut voluptate id nostrud non cillum id nostrud labore exercitation. Pariatur tempor proident non consectetur sunt.
+      Exercitation nisi amet cupidatat eiusmod proident laboris amet eu nisi. Aliquip cillum anim fugiat fugiat sit
+      commodo sunt.
+    </p>
+
+    <h5>Any Questions?</h5>
+    <p>
+      Eiusmod do aute incididunt mollit esse. Commodo laboris quis Lorem cillum sit id sit ipsum dolor labore amet nulla
+      ipsum ex. Laboris irure ullamco laboris fugiat aliqua eiusmod reprehenderit occaecat amet aliquip. Sit fugiat
+      mollit enim do cupidatat enim in. Consectetur velit aute cupidatat elit. Fugiat et voluptate ut consequat.
+    </p>
+    <h5>Personal Declaration</h5>
+    <p>
+      Laborum ad cillum aute et do excepteur aliquip do dolore. Fugiat pariatur duis dolore aliqua est. Exercitation
+      proident reprehenderit mollit mollit deserunt reprehenderit elit. Irure do deserunt excepteur cupidatat ad officia
+      amet sit do sit fugiat labore id ad. Veniam duis et aute occaecat nulla. Pariatur velit tempor aliquip qui
+      deserunt ad sunt deserunt aliquip duis anim anim velit. Sint duis minim esse irure ea dolore consequat irure id.
+
+      Non laborum aliquip velit aute nulla laboris laborum reprehenderit quis laborum. Commodo nisi esse dolore eiusmod
+      do velit nostrud consequat. Amet nulla sit magna nostrud incididunt laborum anim culpa cillum irure aute commodo
+      pariatur. Mollit dolor voluptate consectetur est ad ipsum. Dolor sunt reprehenderit ea ut sit consectetur dolore
+      ut deserunt esse enim quis consectetur. Labore dolor ipsum amet aliquip cillum nulla dolor esse minim et culpa
+      irure. Dolore elit id non consectetur culpa cupidatat ad nostrud aliqua occaecat.
+    </p>
+
+    <p>Customer Name: Mr Mohammed Yaseen</p>
+
+    <label for="">Signed</label>
+    <input type="text">
+    <label for="">Date:</label>
+    <input type="text" name="" id="">
+    <div>
+      <table>
+        <tr>
+          <th style="text-align: center;"><span style="font-size: 50px;"><b>Street</b>UK</span> <br><span
+              style="font-size: 15px;">the affordable finance company</span> </th>
+          <th></th>
+        </tr>
+
+      </table>
+    </div>
+
+    <h2 style="text-align: center;">PRE-CONTRACT CREDIT INFORMATION <br>
+      Standard European Consumer Credit Information
+    </h2>
+
+    <h3>1.Contact Details</h3>
+    <div class="table2">
+      <table>
+        <tr>
+          <th>Creditor</th>
+          <th>Debtor</th>
+        </tr>
+        <tr>
+          <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro sint vel explicabo asperiores saepe
+            voluptas molestiae beatae doloremque! Voluptas minus fuga, eveniet earum alias repellat! Delectus impedit
+            perspiciatis sapiente quaerat.</td>
+          <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque voluptatum adipisci voluptatem placeat amet
+            similique asperiores quae accusamus officiis laboriosam quibusdam, labore vel ea repudiandae, hic pariatur
+            quod fuga odio!</td>
+
+        </tr>
+      </table>
+    </div>
+
+
+    <h3>2.Key feature of the credit product</h3>
+    <div class="table3">
+      <table>
+        <tr>
+          <th>The type of credit</th>
+          <th>Loan</th>
+        </tr>
+        <tr>
+          <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia non perferendis ipsum maxime impedit
+            eaque tempora, ducimus, qui quod, quisquam incidunt repudiandae! Amet dolorem ducimus omnis blanditiis, a
+            eligendi! Dignissimos.</td>
+          <td>£600.00</td>
+        </tr>
+        <tr>
+          <td>Lorem ipsum</td>
+          <td>
+            Reprehenderit esse ad pariatur in dolore irure non esse nostrud ad cillum quis aute. Et quis est voluptate
+            anim occaecat do eu esse aliqua cupidatat Lorem Lorem adipisicing. Ipsum tempor nisi excepteur elit
+            deserunt.
+
+            Consectetur elit magna consequat et culpa velit proident voluptate amet. Sit fugiat est ipsum eu et anim et
+            do tempor id. Veniam ea adipisicing nisi culpa quis laborum enim. Laborum qui duis nulla ad. Velit nulla
+            dolor excepteur reprehenderit quis esse incididunt.
+          </td>
+        </tr>
+        <tr>
+          <td>The duration of the credit agreement</td>
+          <td>52 weeks</td>
+        </tr>
+        <tr>
+          <td>Repayments</td>
+          <td>52 weeks</td>
+        </tr>
+        <tr>
+          <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus architecto modi at molestiae obcaecati
+            voluptatem non possimus delectus animi! Delectus nihil possimus explicabo autem aperiam obcaecati aut ipsa
+            voluptas tempora.</td>
+          <td>Cupidatat eiusmod tempor minim minim ea anim. Id elit ea pariatur fugiat et minim est in qui. Ipsum ut
+            excepteur ipsum exercitation quis nisi magna laborum enim. Amet anim excepteur est fugiat in eiusmod fugiat
+            ea id. Adipisicing ullamco reprehenderit veniam duis Lorem magna laboris adipisicing est.
+
+            Magna non incididunt do do enim dolore nostrud reprehenderit ipsum. Adipisicing aliquip aute culpa et
+            laborum magna eu elit nulla do commodo voluptate incididunt. Occaecat est mollit sunt aute voluptate ad
+            voluptate fugiat fugiat.</td>
+        </tr>
+        <tr>
+          <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam inventore eaque sint quaerat eligendi.
+            Dignissimos, id reiciendis, aliquid, voluptatum qui commodi sit aperiam fugiat tempore sunt praesentium
+            vitae blanditiis totam!</td>
+          <td>£1001.81</td>
+        </tr>
+      </table>
+    </div>
+
+
+
+
+    <h3>Cost of the credit</h3>
+    <div class="table4">
+      <table>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>Ea adipisicing cillum Lorem ex dolore exercitation esse. Esse ad deserunt qui aliquip do elit consectetur
+            ad pariatur ea nostrud. Eu ea Lorem elit aliquip magna tempor ut incididunt ex est et deserunt. Non laboris
+            proident elit culpa laborum. Lorem ullamco officia sint in duis id consequat do nisi dolore adipisicing
+            laborum.
+
+            Id pariatur magna laboris do sit labore. Id est mollit cillum cupidatat pariatur eu dolor ut fugiat quis
+            tempor in enim nulla. Irure ullamco sit id irure laboris irure sit nisi veniam enim nisi et. Sit incididunt
+            aliquip nisi commodo eu.</td>
+          <td>180%</td>
+        </tr>
+        <tr>
+          <td>
+            Irure adipisicing adipisicing reprehenderit irure. Enim in aliquip exercitation fugiat. Irure nulla ipsum
+            dolor aute fugiat elit consequat commodo esse occaecat aute laborum sit amet. Aliqua anim ea quis ipsum
+            esse. Ex enim incididunt deserunt laborum magna occaecat. Minim ea ut ipsum labore culpa amet veniam tempor
+            velit est pariatur. Velit culpa mollit amet consectetur eu ex incididunt exercitation laborum do ex magna
+            qui ipsum.
+          </td>
+          <td>
+            148.95%F
+          </td>
+        </tr>
+        <tr>
+          <td>Admin Fee</td>
+          <td>£ 30.00</td>
+        </tr>
+        <tr>
+          <td>Related Costs</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Costs in the case of late payments</td>
+          <td>
+            Sit dolor esse ad ipsum dolore aute aute ullamco laborum ea amet quis labore. Sunt laborum dolore sit eu ex
+            et veniam tempor nulla excepteur adipisicing proident veniam nostrud. Sunt fugiat irure excepteur
+            reprehenderit. Proident officia reprehenderit minim occaecat tempor cupidatat velit consectetur. Culpa
+            consequat enim deserunt sint adipisicing consectetur nisi magna enim duis aliqua minim adipisicing. Tempor
+            consequat occaecat occaecat excepteur velit ipsum proident cupidatat est consequat proident est.
+
+            Nostrud non enim officia magna exercitation elit occaecat nisi excepteur Lorem eiusmod anim ad. Et Lorem
+            velit commodo aute qui cupidatat in tempor laboris laboris ad mollit exercitation. Quis pariatur dolor
+            dolore reprehenderit minim excepteur aute. Dolore nostrud magna Lorem ullamco nulla voluptate culpa
+            adipisicing. Cupidatat elit cillum mollit non proident cillum dolor ea tempor.
+          </td>
+        </tr>
+        <tr>
+          <td>Consequences of missing payments</td>
+          <td>
+            Mollit ad culpa tempor enim proident adipisicing sunt labore ex officia dolore nulla magna. Tempor minim non
+            labore elit. Velit eiusmod sit sint commodo incididunt sunt sunt commodo ex ullamco. Ipsum anim laboris
+            tempor veniam. Cillum mollit id Lorem Lorem esse irure nisi cupidatat aute eu adipisicing excepteur tempor.
+            Cupidatat eu nulla aliqua nostrud commodo eu occaecat irure pariatur dolore duis qui.
+
+            Incididunt qui culpa ipsum ex do pariatur pariatur consequat Lorem. Et consectetur pariatur ea commodo
+            reprehenderit sint laboris labore Lorem incididunt. Aliquip et exercitation cillum enim reprehenderit
+            consequat dolor eiusmod ad in irure sint cillum sunt.
+
+            Incididunt mollit voluptate consequat irure reprehenderit ipsum. Cupidatat nostrud duis duis incididunt.
+            Labore minim reprehenderit cillum velit elit elit cupidatat ut deserunt in minim nostrud. Fugiat et amet non
+            commodo aliquip ut nisi labore exercitation reprehenderit. Dolore do cupidatat aute labore voluptate sit.
+            Sunt quis esse anim dolor nostrud minim commodo adipisicing quis ea excepteur duis. Excepteur qui ex elit
+            consectetur ea ea in voluptate adipisicing aliquip nulla.
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <h3>4.Other important legal aspects</h3>
+    <table>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>Right of withdrawal</td>
+        <td>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque sequi impedit modi minus accusamus quisquam
+          debitis quis cupiditate nulla eum a quia sed veniam maiores, quaerat fuga voluptatibus. Autem, totam.
+        </td>
+      </tr>
+      <tr>
+        <td>Early repayment</td>
+        <td>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident aperiam, nesciunt tempora cum ullam,
+          expedita praesentium quae eaque corrupti vitae assumenda sunt architecto alias iure veniam, dolorem est.
+          Obcaecati, officiis.
+        </td>
+      </tr>
+      <tr>
+        <td>Consulataton with a Credit Reference Agency</td>
+        <td>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt, inventore. Quaerat culpa, aliquid ea nemo
+          vitae aperiam alias distinctio maiores aut esse omnis nisi est nobis dignissimos in veniam mollitia.
+        </td>
+      </tr>
+      <tr>
+        <td>Right to a draft credit agreement</td>
+        <td>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi accusamus libero distinctio similique!
+          Provident iste fuga asperiores itaque cum. At autem laborum explicabo tempore numquam laudantium commodi
+          quisquam, quam obcaecati.
+        </td>
+      </tr>
+    </table>
+
+    <h3>5.Additional information in the case of distance marketing of financial services</h3>
+    <table>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>Conserning the creditor</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Company number:</td>
+        <td>wdwdwdwd</td>
+      </tr>
+      <tr>
+        <td>The spuervisory authority</td>
+        <td>The financial Conduct Auhority</td>
+      </tr>
+      <tr>
+        <td>(b) Concerinig the credit agreement</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          Magna ipsum nostrud do in est. Veniam velit do eu cupidatat cillum consectetur exercitation laborum duis sit
+          do est dolore eiusmod. Anim pariatur magna consequat officia deserunt aliqua eu aliquip. Cupidatat fugiat
+          incididunt consequat pariatur aliqua sunt ea.
+
+          Commodo ullamco magna proident elit id et occaecat sunt nisi ut ex proident. Voluptate voluptate et non
+          laboris ut culpa exercitation laborum commodo. Culpa non exercitation proident consequat consequat enim
+          cupidatat deserunt nulla reprehenderit cupidatat dolor laborum. Nostrud pariatur occaecat fugiat enim.
+        </td>
+        <td>
+          Aute sint deserunt ea est nisi in veniam esse voluptate. Quis cupidatat voluptate ex irure do est sint Lorem
+          ad non officia aliqua. Qui exercitation ut est non. Deserunt incididunt cillum irure excepteur ex excepteur
+          quis labore id occaecat ut culpa est. Amet in est reprehenderit sint veniam ex occaecat anim amet. Ad irure
+          ullamco tempor officia sunt eu do occaecat cupidatat veniam.
+
+          Eu do fugiat reprehenderit sunt dolor labore tempor aliquip ipsum labore sit. Duis aute deserunt Lorem cillum
+          fugiat eu. In occaecat ut qui esse proident. Et ad nostrud laboris eiusmod ea qui tempor laboris veniam esse
+          cillum est ea. Nostrud aliquip velit Lorem ad irure aute elit nostrud aute velit sunt cillum proident. Nulla
+          cillum aliqua cillum non eu pariatur consequat est officia ut consectetur. Esse irure aute ullamco laborum
+          culpa cillum amet eu sit ex culpa.
+        </td>
+      </tr>
+      <tr>
+        <td>(c) conserning redress</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Access to out-of-court complaint and redress mechanism</td>
+        <td>
+          Quis amet voluptate id dolore et laborum nisi aute do Lorem ipsum eu laboris officia. Sit tempor ut velit amet
+          eu Lorem do fugiat. Nisi veniam irure pariatur velit adipisicing enim ad.
+
+          Laborum id sint ut fugiat amet consequat laboris nulla reprehenderit sint quis sit in. Pariatur aute ad
+          excepteur proident non. Est aliquip proident magna sunt dolor ullamco do do quis minim amet velit.
+
+          Fugiat magna magna est ullamco mollit. Incididunt consequat ullamco fugiat ut dolor deserunt elit voluptate
+          duis ipsum consequat id proident eu. Reprehenderit tempor sunt in sint consectetur deserunt. Veniam ea ad
+          nostrud et anim culpa enim reprehenderit Lorem. Aute veniam officia consectetur magna in nulla incididunt duis
+          incididunt id magna sit ea excepteur. Laborum anim cupidatat eu eiusmod qui eu sunt aliqua culpa nostrud enim
+          officia nulla reprehenderit.
+        </td>
+      </tr>
+    </table>
+    <div>
+      <table>
+        <tr>
+          <th style="text-align: center;"><span style="font-size: 50px;"><b>Street</b>UK</span> <br><span
+              style="font-size: 15px;">the affordable finance company</span> </th>
+          <th></th>
+        </tr>
+
+      </table>
+    </div>
+    <h2 style="text-align: center;">Fixed Sum Loan Agreement regulated by the Consumer Credit Act 1974</h2>
+    <h3>Loan Number: BIR59103</h3>
+
+    <p>
+      Creditor("Lender/us/our/we") <br>
+      Street(UK) CIC of Neville House, 14 Waterloo Street, Birmingham< B2 5Tx <br>
+        <span style="font-weight: 600;">Debtor("you/your")</span> <br>
+        Me.Mohammed Yaseen, 24 Bromyard Road, Sparkhill, B11 3BA <br><br>
+        <Span style="font-weight: 600;">
+          Total amount of credit <br>
+          Duration of this agreement <br>
+          Total amount payable <br>
+          APR: <br><br>
+        </Span>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium doloremque laboriosam voluptate! Aspernatur
+        voluptatem porro, nihil, atque labore voluptates sunt at magnam amet nam blanditiis libero voluptatum a, cumque
+        ea.
+        <span style="text-align: center;">
+          - Lorem ipsum dolor, sit amet consectetur <br>
+          - Lorem ipsum dolor sit amet consectetur <br>
+          - Lorem, ipsum dolor sit amet consectetur
+        </span>
+        Laboris est in proident nostrud amet. Consequat sit esse sunt cupidatat minim cupidatat aliqua do ut id
+        occaecat. Ut Lorem deserunt adipisicing cupidatat non culpa fugiat sit esse consectetur consectetur dolore
+        tempor. Nostrud sit dolor Lorem in.
+        <br><br>
+        <Span style="font-weight: 600;">
+          Total charge of credit <br>
+          Duration of this agreement <br>
+          Total amount payable <br>
+          APR: <br><br>
+        </Span>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima mollitia impedit, accusamus magni cupiditate
+        harum soluta sit ea, ratione, corporis fugiat! Repellendus dolorem rerum vero eius aliquam, officia quisquam
+        quaerat.
+        <br>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro esse voluptates pariatur, animi eveniet et
+        repellendus, in dolorum velit vel soluta molestias. Itaque eveniet iusto impedit doloremque quos quas?
+        Dignissimos.
+
+    </p>
+
+    <table>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>Charges</td>
+        <td>Occaecat consequat dolore reprehenderit esse fugiat magna anim quis pariatur sunt incididunt reprehenderit
+          enim. Esse et Lorem est do id sunt minim amet laboris labore voluptate. Mollit sit anim eu non veniam duis ut
+          ut qui laboris. Ex mollit labore Lorem est voluptate adipisicing nostrud magna elit veniam qui Lorem. Tempor
+          ex nulla commodo exercitation culpa incididunt esse sit aute eu exercitation ad et dolor. Labore laborum do
+          labore tempor non adipisicing elit proident.
+
+          Nulla ea veniam sint do Lorem tempor eiusmod ipsum tempor veniam nisi. Ut non reprehenderit labore fugiat esse
+          enim commodo quis id minim consequat id culpa ipsum. Proident ullamco mollit nostrud non. Ut officia fugiat
+          Lorem do sit voluptate eiusmod nulla veniam. Ipsum elit nostrud nisi amet officia nulla ut voluptate. Non
+          excepteur do qui adipisicing tempor et qui et dolor fugiat adipisicing ut cupidatat enim. Ut amet irure
+          consequat eu.</td>
+      </tr>
+      <tr>
+        <td>
+          Your right to withdraw
+        </td>
+        <td>
+          Exercitation id tempor duis reprehenderit dolore eiusmod cillum mollit. Aute ea nisi consectetur id enim velit
+          irure cillum tempor non nostrud minim magna. Aliquip tempor aliqua adipisicing pariatur eu incididunt anim
+          exercitation Lorem aliquip. Est deserunt officia consectetur officia ullamco eu nisi quis excepteur voluptate
+          nostrud laborum fugiat commodo.
+
+          Esse irure magna dolor sunt officia aliquip irure proident. Tempor cillum quis ut commodo esse nostrud
+          cupidatat elit culpa ipsum qui. Eiusmod ad fugiat pariatur minim tempor deserunt cillum proident non ad
+          deserunt fugiat eiusmod consequat. Est incididunt ullamco aliqua occaecat veniam quis exercitation cillum
+          magna dolore reprehenderit consectetur labore officia. Adipisicing dolor sint consectetur in exercitation.
+
+          Aliqua amet mollit ad amet laboris ad excepteur nulla nulla pariatur ullamco. Et non incididunt nostrud quis
+          ullamco laborum est esse quis dolor sit dolore tempor. Qui laboris dolor Lorem mollit deserunt cupidatat. Duis
+          nisi veniam excepteur reprehenderit magna.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Interest payable per day:
+        </td>
+        <td>
+          sfsfsdfsdfsdfdsfdfsd
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Your right to repay early
+        </td>
+        <td>
+          Excepteur enim officia eu consectetur anim ipsum. Incididunt velit et sint est sit amet laboris aliqua sit
+          Lorem laborum est magna dolore. Fugiat cillum ut officia enim cillum excepteur enim. Proident duis culpa
+          pariatur est Lorem officia ex quis esse minim ipsum. Sit enim aute sunt pariatur cillum. Do dolor sunt
+          adipisicing minim ullamco Lorem enim dolor magna in elit. Officia deserunt Lorem veniam quis ipsum tempor
+          commodo officia enim esse.
+
+          Commodo reprehenderit aliquip sint deserunt enim exercitation fugiat mollit. Ullamco nostrud ad do ullamco
+          adipisicing proident et aliqua labore ad. Ea nisi minim aliquip consectetur eu do ex duis. Sint aliquip tempor
+          aute incididunt aliqua aliqua adipisicing aute est incididunt nulla excepteur dolor. Do laboris eiusmod
+          voluptate aute ipsum irure. Labore eu aliqua consequat elit eiusmod.
+
+          Ad commodo sit sint officia ullamco eu eiusmod mollit nulla veniam dolor dolore. Aute nulla aliquip est nulla
+          aute aliqua dolore aliqua. Do incididunt sint et laborum do ut.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Missing Payments
+        </td>
+        <td>
+          Consequat dolor et est laborum aliquip et minim consectetur laborum dolore quis. Id mollit amet occaecat do
+          sint aliqua. Non enim amet aliquip labore ipsum commodo dolor aliqua ut laboris. Eiusmod non cupidatat amet
+          mollit nisi non dolor officia deserunt ipsum officia. Cupidatat tempor officia fugiat nisi aliquip dolore
+          Lorem ex nostrud qui aliqua reprehenderit consequat. Magna occaecat ad ex proident ut ea nulla anim eu nostrud
+          laboris anim.
+
+          Officia voluptate mollit qui sunt cillum aliquip voluptate elit eiusmod laborum deserunt ex. Est exercitation
+          minim non occaecat culpa exercitation voluptate velit quis ipsum excepteur labore esse. Duis labore laborum
+          laboris nostrud ea dolor veniam eu ullamco et qui nostrud cupidatat.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Special Conditions
+        </td>
+        <td>
+          Incididunt reprehenderit sit consectetur sint irure non est culpa aliqua. Sint ipsum dolore amet in aliqua id
+          nulla enim. Nostrud proident commodo officia amet sint ipsum eiusmod esse adipisicing.
+        </td>
+      </tr>
+    </table>
+    <p>This is a credit agreement ehich you should only sign if you should only sin if you want to be legall bound by
+      it's terms</p>
+    <table>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>
+          Signature(s) <br> of Customer
+        </td>
+        <td>
+          Signature(s) <br> of Customer
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Date(s) of signatures
+        </td>
+        <td>
+          Date(s) of signatures
+        </td>
+      </tr>
+
+    </table>
+    <p>Signed for and on behalf of the Lender</p>
+    <P>Data(Which is the date of this agreement</P>
+
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis voluptatum unde aliquid nam, maxime error
+      veritatis neque vel sunt placeat corrupti architecto voluptates voluptas soluta corporis, quia dicta magnam amet.
+    </p>
+
+    <h3 style="text-align: center;">TERMS OF AGREEMENT</h3>
+    <P>
+      Duis tempor culpa irure cupidatat id adipisicing eu ea Lorem irure cupidatat laborum occaecat nostrud. Veniam
+      laborum voluptate ex mollit mollit labore tempor exercitation officia proident veniam aute consequat. Ad laborum
+      ipsum sunt ea dolore magna exercitation dolore enim culpa eiusmod. Pariatur deserunt voluptate dolor ipsum velit
+      pariatur ea consectetur.
+
+      Velit tempor laborum anim duis incididunt do laborum aliquip nostrud nisi excepteur occaecat tempor proident.
+      Dolor duis deserunt occaecat labore consequat elit aliquip pariatur adipisicing velit. Voluptate commodo nostrud
+      elit amet non irure eiusmod sunt incididunt ad enim consequat. Sunt in aliqua ex nulla nostrud amet incididunt
+      velit.
+
+      Dolor sunt ea tempor non. Reprehenderit excepteur labore excepteur quis anim culpa nisi. Lorem aliqua sunt laboris
+      nostrud qui do incididunt quis exercitation laboris laborum. Est laborum fugiat minim aliquip qui excepteur
+      nostrud occaecat. Eu elit magna sunt minim quis officia consequat ad. Eiusmod cupidatat sunt proident dolore
+      exercitation. Labore voluptate culpa elit velit reprehenderit aliqua sunt consectetur aute mollit.
+
+      Est sunt id mollit cillum sint in excepteur ut duis sunt sint. Et ipsum aliqua incididunt ex et sunt fugiat aliqua
+      magna culpa aliqua in exercitation minim. Enim consequat nostrud aliquip in occaecat et.
+    </P>
+
+
+    <h4 style="text-decoration: underline;">Mraketing opt in</h4>
+    <p>
+      Dolore incididunt non incididunt irure ut incididunt mollit exercitation laborum. Occaecat in in magna nisi quis
+      eu elit. Ex irure nisi sint proident sit occaecat. Duis tempor adipisicing mollit ex. Sit nulla enim cillum
+      officia culpa laborum sit fugiat ipsum nisi. Lorem enim Lorem consequat eu in laborum in ad. <br>
+      <br>
+      Ea fugiat occaecat esse do occaecat labore. Sunt deserunt aliqua nisi dolore esse nisi incididunt cupidatat sit
+      minim consequat labore Lorem proident. Consectetur eu aliqua ad dolore sit enim labore ut. Exercitation sit qui
+      non enim nostrud consequat laboris mollit amet anim ipsum. Sit quis laborum aliquip esse esse dolor. Et anim eu in
+      sit proident elit culpa pariatur ad.
+      <br><br>
+      Et in enim incididunt deserunt. Id cupidatat labore adipisicing laborum. Ea consequat esse tempor Lorem cillum non
+      aliqua. Dolor officia cillum et eu voluptate tempor nostrud Lorem deserunt pariatur id irure eu. Consectetur
+      labore ullamco reprehenderit ad velit veniam aliqua minim est. Pariatur proident proident laboris cillum do
+      reprehenderit qui. Ad incididunt laborum Lorem ut elit nulla esse.
+    </p>
+
+    <input type="radio" name="yes" id="">
+    <label for="">Yes</label> <br>
+
+    <input type="radio" name="no" id="">
+    <label for="">No</label> <br> <br>
+
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus deleniti, nemo voluptatem consectetur
+      natus laborum illum nisi amet dolorem, consequatur corrupti repudiandae! Maiores, error ut ex iste amet quo
+      minima?</p> <br>
+    <br>
+    <p>Officia cillum qui ipsum laborum duis non. Occaecat adipisicing non duis aliquip Lorem laboris. Ipsum dolore
+      voluptate labore commodo commodo consequat.</p>
+
+    <label for="">Signed:</label>
+    <input type="text"><br><br>
+    <label for="">Date:</label>
+    <input type="text">
+
+    <br><br>
+    <div class="table1">
+      <div class="div1">
+        <span style="font-size: 50px;"><b>Street</b>UK</span> <br><span style="font-size: 15px;">the affordable finance
+          company</span>
+      </div>
+      <div class="div3">
+        <span style="font-size: 20px; font-weight: 710;text-align: center">Direct <br> Debit</span>
+      </div>
+      <div class="div2">
+
+        <span style="font-size: 25px; font-weight: 700; text-align: center;">Instruction to your<br> Bank or Building
+          Society <br> to pay Direct Debits</span>
+      </div>
+    </div><br><br>
+    <p>
+      Please fill in the whole form and send it to: <br>
+      Street (UK) CIC, Neville Hous, 14 Waterloo Street, Birmingham, B2 5TX <input type="text"
+        placeholder="Servie User Number">
+
+    </p>
+
+    <p>Name and full adress of your Bank or Building Society branch</p>
+    <div style="width:500px;height:160px;border:1px solid #000;">
+      <label for="">Name of Acount Holder:</label><br>
+      <input type="text"><br><br>
+      <label for="">Bank or Building Society Account Number</label><br>
+      <input type="number"><br><br>
+      <label for="">Branch Sort Code</label><br>
+      <input type="text"><br><br>
+    </div>
+    <br><br>
+    <div style="width:500px;height:100px;border:1px solid #000;">
+      <p>To: The Manager</p>
+    </div><br><br>
+    <p style="text-align: center; font-weight: 700;">
+      Banks/Building Sociteties may not accept <br>
+      Direct Deit Instrucions <br>
+      for some types of account
+    </p>
+
+    <div style="width:500px;height:100px;border:1px solid #000;">
+      <p>
+        Reference: <br>
+        <span style="font-weight: 500;">BIR59103</span>
+      </p>
+    </div><br><br>
+    <h3>Instruction to your Bank or Building Society:</h3>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, voluptatibus modi! Adipisci qui doloremque illo
+      aliquam repellendus, tenetur in, quaerat sint laboriosam esse quia a facilis nihil numquam animi tempora.
+    </p>
+
+    <div style="width:500px;height:150px;border:1px solid #000;">
+      signature(s) <br>
+      <input type="text"> <br> <br>
+      <input type="text"> <br> <br>
+      <label for="">Dated</label>
+      <input type="text" name="" id="">
+    </div>
+
+    <hr class="hr1">
+
+    <div class="table1">
+      <div class="div1">
+        <span style="font-size: 50px;"><b>Street</b>UK</span> <br><span style="font-size: 15px;">the affordable finance
+          company</span>
+      </div>
+      <div class="div3">
+        <span style="font-size: 20px; font-weight: 710;text-align: center">Direct <br> Debit</span>
+      </div>
+      <div class="div2">
+
+        <span style="font-size: 25px; font-weight: 700; text-align: center;">Direct <br> Debit Guarantee</span>
+      </div>
+
+      <p>
+        <br>
+        Nulla do quis id est deserunt nostrud exercitation officia eu veniam excepteur.
+        <br><br>
+        Ad elit sit aliquip aliquip dolor labore aute amet sint ut enim pariatur quis do. Eu incididunt est fugiat
+        mollit commodo. Fugiat veniam aute fugiat tempor laborum sint fugiat mollit in dolor laboris eiusmod fugiat
+        commodo. Sunt cupidatat sit laboris reprehenderit deserunt id cupidatat velit Lorem quis occaecat. Commodo eu
+        velit enim anim adipisicing est qui velit.
+        <br><br>
+        Adipisicing ad enim velit incididunt et. Adipisicing deserunt consequat reprehenderit reprehenderit ex quis.
+        Laborum ullamco exercitation deserunt nostrud magna exercitation ut. Incididunt id laborum esse reprehenderit
+        reprehenderit. Proident aliqua exercitation nulla minim sint amet dolore magna occaecat exercitation veniam est.
+        Sint ut est culpa irure cillum do. Laboris ipsum non ea amet ea do occaecat.
+      </p>
+
+
+      <br><br>
+      <div class="table1">
+        <table>
+          <tr>
+            <th style="text-align: center;"><span style="font-size: 50px;"><b>Street</b>UK</span> <br><span
+                style="font-size: 15px;">the affordable finance company</span> </th>
+            <th style="text-align: center;"><span style="font-size: 20px; font-weight: 710;"></span> </th>
+            <th style="text-align: center;"><span style="font-size: 15px; font-weight: 800;"></span><br>
+            </th>
+          </tr>
+
+        </table>
+      </div>
+      <hr class="hr1">
+      <br>
+      <p>
+        Mr Yaseen <br>
+        24 Bromyard Road <br>
+        Sparkhill <br>
+        B11 3BA
+      </p>
+
+      <h3 style="text-align: center;">Payment Schedule</h3>
+
+      <table style="text-align: center;">
+        <tr>
+          <th>Date</th>
+          <th>Descrption</th>
+          <th>Total <br> Advanced <br> £</th>
+          <th>Total <br> Repaid <br> £</th>
+        </tr>
+
+        <tr>
+          <td>26-JUl-2022</td>
+          <td>Advance</td>
+          <td>570.00</td>
+          <td>30.00</td>
+        </tr>
+        <tr>
+          <td>26-JUl-2022</td>
+          <td>Advance</td>
+          <td>570.00</td>
+          <td>30.00</td>
+        </tr>
+        <tr>
+          <td>26-JUl-2022</td>
+          <td>Advance</td>
+          <td>570.00</td>
+          <td>30.00</td>
+        </tr>
+        <tr>
+          <td>26-JUl-2022</td>
+          <td>Advance</td>
+          <td>570.00</td>
+          <td>30.00</td>
+        </tr>
+
+      </table>
+      <hr class="hr1">
+      <p> Taotals 600.00 1,001.81</p>
+      <hr class="hr1">
+      Total cost fo the loan (interest & fees) £ 431.81
+      <p style=" font-weight: 700;">
+        PLEASE NOTE: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis illum eveniet incidunt
+        laboriosam sunt nemo sit quae. Sit vitae aspernatur fugit, minima consectetur, recusandae pariatur, repudiandae
+        fugiat expedita placeat animi.
+      </p>
+
+      <div class="table1">
+        <table>
+          <tr>
+            <th style="text-align: center;"><span style="font-size: 50px;"><b>Street</b>UK</span> <br><span
+                style="font-size: 15px;">the affordable finance company</span> </th>
+            <th style="text-align: center;"><span style="font-size: 20px; font-weight: 710;"></span> </th>
+            <th style="text-align: center;"><span style="font-size: 15px; font-weight: 800;"></span><br>
+            </th>
+          </tr>
+
+        </table>
+      </div>
+      <p>
+        Me.Mohammed Yaseen <br> 24 Bromyard Road <br> Sparkhill, <br><br>
+        Birmingham <br> B11 3BA
+      </p>
+
+
+      <h4>Loan Advance</h4>
+      <p>
+        Loan No: <br>
+        Date of Advance: <br>
+        Loan Amount: <br>
+        Amount of repay existing loan(s): <br>
+        Fee amount: <br>
+        Amount to be advanced <br>
+      </p>
+      <h4>Repayments</h4>
+      <p>
+        Loan Repayment: <br>
+        Frequency: <br>
+        First Payment: <br>
+      </p>
+
+      <p>
+        Dear Mohammed, <br><br>
+        Esse ut ullamco eu eu cillum consectetur. Non ea duis ut incididunt commodo in. Est labore proident labore ad
+        exercitation incididunt in. Cupidatat amet quis labore ipsum nostrud non est veniam ad cillum culpa culpa sint.
+        Esse est adipisicing aliquip eiusmod fugiat laboris. Id duis veniam sint ullamco minim eiusmod excepteur eu ex
+        culpa sunt veniam.
+      </p>
+
+      <h4>If you wish to repay part or all of your loan earlier</h4>
+      <p>
+        Culpa proident ut aliqua cillum do voluptate aute voluptate reprehenderit do ea. Magna est laboris esse
+        adipisicing do et. Dolore voluptate voluptate incididunt nisi sunt voluptate veniam. Magna cillum do quis ex
+        deserunt laborum reprehenderit in labore ut eiusmod.
+        <br>
+        Minim ad voluptate do ipsum cillum voluptate. Aliquip laborum mollit mollit eiusmod fugiat commodo. Laborum
+        dolore sunt et sint aliquip esse ad non excepteur. In elit nostrud minim aliqua sit.
+      </p>
+
+      <h4>If you experience any problems with making repayments</h4>
+
+      <p>
+        Labore ex sit ea minim culpa labore labore nulla. Incididunt eu nisi eu incididunt non eu velit ea aute non quis
+        sunt cupidatat exercitation. Ipsum dolor ea fugiat aliqua mollit in nisi amet anim amet labore.
+        <br>
+        Ea enim magna incididunt sint ullamco voluptate duis. Commodo nostrud reprehenderit ad magna. Consequat aute
+        nisi duis reprehenderit excepteur cupidatat tempor eu pariatur ut. Eiusmod ullamco enim eu aliquip laborum
+        nostrud ea eu sunt reprehenderit minim voluptate. Pariatur Lorem fugiat aute nisi laboris tempor non. Ullamco eu
+        cupidatat et elit ipsum voluptate occaecat aute amet aliquip elit Lorem.
+      </p>
+
+      <h4>You want to apply for a new loan</h4>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora eveniet adipisci cum quam voluptatum eaque.
+        Suscipit, exercitationem? Vitae voluptates, commodi recusandae sed reiciendis deserunt excepturi possimus
+        voluptatum nisi dicta minima!
+      </p>
+      <h4>Your contact detailed change</h4>
+      <p>
+        Velit enim ullamco eiusmod qui mollit laboris laboris mollit esse amet. Deserunt incididunt enim tempor dolor
+        amet. Do tempor ex nisi nisi commodo labore.
+      </p>
+
+      <h4>Managing your loan</h4>
+      <p>
+        Voluptate anim laboris deserunt laboris. Et in deserunt sint eu sunt ea sint laboris sint aliquip aute consequat
+        exercitation consequat. Cupidatat elit sit et consectetur voluptate cillum et minim magna amet. Quis
+        reprehenderit nostrud veniam fugiat aliqua nulla aute ullamco non esse et. Dolor Lorem commodo dolor incididunt
+        proident. Laboris minim cillum exercitation tempor elit officia sunt ex excepteur consequat nostrud anim sunt
+        incididunt. Sint qui dolor ipsum quis incididunt fugiat Lorem incididunt aliquip est commodo esse.
+      </p>
+
+
+
+
+
+    </div>
+    <button class="btn btn-primary" (click)="downloadAsPDF();">Export To PDF</button>
+  </div>

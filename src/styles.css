@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+.hr1{
+    height: 1.5px;
+    background: black;
+}
+
+.hr2{
+    height: 4px;
+    border-color: black;
+    border-width: 2px;
+}
+.hex {
+    width: 40%;
+    height: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+*{
+    font-family: 'vag-rounded-regular', sans-serif;
+}
